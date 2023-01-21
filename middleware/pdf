@@ -36,7 +36,6 @@ async function created(){
             ex:ex,
             ed:ed
         }
-        console.log(data.user.firstname)
         const content=await compile("template1",data);
 
         await page.setContent(content);
@@ -59,18 +58,19 @@ async function created(){
 
 }
 created();
-
     
-// fs.readFile(pdfpath,(err,file)=>{
-//     if(err){
-//         console.log(err);
-//         throw (err);
-//     }
-//     res.setHeader('Content-Type','application/pdf');
-//     res.setHeader('Content-Desposition',`attachment;filename=${names}.pdf`);
-//     res.send(file);
-// });
-return res.json({success:true})
+
+const pdfpath2= path.join(__dirname,'..', 'pdf','divysharma.pdf');
+    
+fs.readFile(pdfpath2,(err,file)=>{
+    if(err){
+        console.log(err);
+        throw (err);
+    }
+    res.setHeader('Content-Type','application/pdf');
+    res.setHeader('Content-Desposition',`attachment;filename=divysharma.pdf`);
+    res.send(file);
+});
 
 }
 catch(err)
