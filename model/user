@@ -63,7 +63,7 @@ const userschema=new schema({
     ],
     experience:[{
         type:Object,
-        ref:"education"
+        ref:"experience"
     }
     ]
     
