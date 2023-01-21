@@ -33,11 +33,10 @@ const sent=async (req,res,next)=>{
  
  const msg2=transport.sendMail(mailOptions)
     if(msg2){
-      const hashotp=await bcrypt.hash(otp,12);
       const token=jwt.sign({email:emailId.toLowerCase()},process.env.secretkey,{expiresIn:"1d"});
       const updated= await User.updateOne({email:emailId.toLowerCase()},{
         $set:{
-           otp:hashotp,
+           otp,
            expireotp:Date.now()+120000,
            token
         }});        

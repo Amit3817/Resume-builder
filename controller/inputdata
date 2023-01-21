@@ -28,11 +28,12 @@ const personaldetails=async (req,res,next)=>{
             number,
             city,
             state,
-            imglink:filepath
+            imagelink:filepath
         }});
         const user=await User.findOne({email:req.user.email})
-        if(updated)
+        if(update)
         {
+            console.log(user.education[0].feild)
             return res.status(201).json({success:true,msg:"Personal details added",user});
         }
     }
@@ -55,9 +56,13 @@ const education=async (req,res,next)=>{
            userid:req.user._id
         });
 
-        if(updated)
+        if(update)
         {
-            const user=await User.findOne({email:req.user.email})
+            const userupdate=await User.updateOne({email:req.user.email},{
+                $push:{
+                    education:update._id
+                }})
+                const user=await User.findOne({email:req.user.email})
             return res.status(201).json({success:true,msg:"Education details added",user});
         }
 }
@@ -82,8 +87,12 @@ const experience=async (req,res,next)=>{
                      userid:req.user._id
 
         });
-        if(updated)
+        if(update)
         {
+            const userupdate=await User.updateOne({email:req.user.email},{
+                $push:{
+                    experience:update._id
+                }})
             const user=await User.findOne({email:req.user.email})
             return res.status(201).json({success:true,msg:"Experience details added",user});
         }
@@ -102,7 +111,7 @@ const languages=async (req,res,next)=>{
           languages:languages
 
         }});
-        if(updated)
+        if(update)
         {
             const user=await User.findOne({email:req.user.email})
             return res.status(201).json({success:true,msg:"Language added",user});
@@ -119,10 +128,10 @@ const skills=async (req,res,next)=>{
     const {skills}=req.body;
     const update=await User.updateOne({email:req.user.email},{
         $push:{
-          skills:skills
+          skills
 
         }});
-        if(updated)
+        if(update)
         {
             const user=await User.findOne({email:req.user.email})
             return res.status(201).json({success:true,msg:"Skill added",user});
@@ -143,7 +152,7 @@ const aboutme=async (req,res,next)=>{
           aboutme
 
         }});
-        if(updated)
+        if(update)
         {
             const user=await User.findOne({email:req.user.email})
             return res.status(201).json({success:true,msg:"Skill added",user});

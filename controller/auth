@@ -26,18 +26,19 @@ const sign=async (req,res,next)=>{
      next();
    }
      else{ 
-      if(old.password!="null")
+      if(!old.password)
       {
-         const token=jwt.sign({email:emailId.toLowerCase()},process.env.secretkey,{expiresIn:"1d"});
-         const updated= await User.updateOne({email:emailId.toLowerCase()},{
-           $set:{
-              token
-           }});  
-      return res.status(201).json({success:true,password:true,msg:"Enter password to continue",token});
+         req.user=old;
+         next();
+
          }
          else{
-            req.user=old;
-            next();
+            const token=jwt.sign({email:email.toLowerCase()},process.env.secretkey,{expiresIn:"1d"});
+            const updated= await User.updateOne({email:email.toLowerCase()},{
+              $set:{
+                 token
+              }});  
+         return res.status(201).json({success:true,password:true,msg:"Enter password to continue",token});
          }
    }
 
@@ -61,8 +62,8 @@ const verifyotp=async (req,res,next)=>{
       }
       const otp=req.body.otp;
       const user=await User.findOne({email:req.user.email});
-      const result=await bcrypt.compare(otp,user.otp);
-      if(result)
+      const result=await bcrypt.compare(otp.toString(),user.otp.toString());
+      if(otp==user.otp&&user.expireotp>=Date.now())
       {
          
          return res.status(201).json({success:true,msg:"OTP verified",user});

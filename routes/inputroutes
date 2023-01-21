@@ -3,7 +3,8 @@ const inputcontroller=require("../controller/inputdata");
 const { body }=require("express-validator");
 const tokenverify=require("../middleware/isauth");
 const router=express.Router();
-const Upload=require('../middleware/multer')
+const Upload=require('../middleware/multer');
+const pdf=require("../middleware/pdf")
 
 router.post('/personaldetails',[ 
   body('firstname','Not a valid entry')
@@ -29,10 +30,7 @@ router.post('/personaldetails',[
   body('state','Not a valid entry')
   .isAlpha()
 .not()
- .isEmpty(),
-  body('tagline','Not a valid entry')
-.not()
- .isEmpty(),
+ .isEmpty()
 ],tokenverify.verifytoken,Upload.uploadImg.single('image'),inputcontroller.personaldetails);
 
 
@@ -105,6 +103,7 @@ router.post('/aboutme',
 .not()
  .isEmpty()],tokenverify.verifytoken,inputcontroller.aboutme);
 
+router.get('/download',tokenverify.verifytoken,pdf.generatepdf)
  
 
  module.exports=router;

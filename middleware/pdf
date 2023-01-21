@@ -9,13 +9,15 @@ const puppeteer = require('puppeteer');
 const generatepdf=async (req,res,next)=>{
     try{
 const user=await User.findOne({email:req.user});
+const ex=await User.findOne({email:req.user}).populate('experience');
+const ed=await User.findOne({email:req.user}).populate('education');
 
-const compile=async function (user){
+const compile=async function (user,ex,ed){
     const  filePath=path.join(__dirname,'..','templates',`template1.hbs`)
 
     const html=await fs.readFile(filePath,'utf8');
 
-    return hbs.compile(html)(user);
+    return hbs.compile(html)(user,ex,ed);
 };
 
 const atindex=email.lastIndexOf('@');

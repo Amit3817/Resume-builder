@@ -38,7 +38,7 @@
 
             <div class="px-4">
                 <h2 class="mx-4 font-bold mt-4">{{user.firstname+ " " +user.lastname}} </h2>
-                <p class="mx-4 fs-small mb-2 text-secondary">{{user.tagline}}</p>
+                {{!-- <p class="mx-4 fs-small mb-2 text-secondary">{{user.tagline}}</p> --}}
             </div>
 
             <hr></hr>
@@ -60,12 +60,12 @@
 
                     <hr></hr>
 
-                    <h3 class="mb-3 ls-2">• LINKS</h3>
+                    {{!-- <h3 class="mb-3 ls-2">• LINKS</h3>
 
                     <h4 class="m-0 text-secondary">LinkedIn:</h4>
                     <a class="m-0 mb-2" href="{{user.linkedin}}"></a>
                     <h4 class="m-0 text-secondary">GitHub:</h4>
-                    <a class="m-0 mb-2" href="{{user.github}}"></a>
+                    <a class="m-0 mb-2" href="{{user.github}}"></a> --}}
 
                     <hr></hr>
 
@@ -89,11 +89,11 @@
 
                     <h3 class="mb-3 ls-2">• WORK EXPERIENCE</h3>
 
-                          {{#each user.experience}}
+                          {{#each ex}}
         <div>
-            <h3 class="float-left text-secondary">• </h3> <h3 class="ps-3 text-secondary">{{user.experience.jobtitle}}</h3>
-            <p class="m-0 ps-3">{{user.experience.projectname}} • {{user.experience.startm}} {{user.experience.starty}}  {{user.experience.endm}} {{user.experience.endy }}</p>
-            <p class=" ps-3">{{user.experience.description}}</p>
+            <h3 class="float-left text-secondary">• </h3> <h3 class="ps-3 text-secondary">{{ex.jobtitle}}</h3>
+            <p class="m-0 ps-3">{{ex.projectname}} • {{ex.startm}} {{ex.starty}}  {{ex.endm}} {{ex.endy }}</p>
+            <p class=" ps-3">{{ex.description}}</p>
         </div>
                            {{/each}}
 
@@ -101,11 +101,11 @@
 
                     <h3 class="mb-3 ls-2">• EDUCATION</h3>
 
-                          {{#each user.education}}
+                          {{#each ed}}
         <div>
-            <h3 class="float-left text-secondary">• </h3> <h3 class="ps-3 text-secondary">{{user.education.school}}</h3>
-            <p class="m-0 ps-3">{{user.education.degree}} • {{user.education.field}} </p>
-            <p class="ps-3">{{user.education.syear}} - {{user.education.gyear}}</p>
+            <h3 class="float-left text-secondary">• </h3> <h3 class="ps-3 text-secondary">{{ed.school}}</h3>
+            <p class="m-0 ps-3">{{ed.degree}} • {{ed.field}} </p>
+            <p class="ps-3">{{ed.syear}} - {{ed.gyear}}</p>
         </div>
                            {{/each}}
 
